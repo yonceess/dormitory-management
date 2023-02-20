@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang=en xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+
+    <meta charset="UTF-8">
+    <meta charset="ISO-8859-1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Add User</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="profile.css"  th:href="@{/css/profile.css}">
+
+    <!-- Main css -->
+</head>
+<body style="background-color: #798997">
+
+<div class="container" th:each="informationss : ${information}">
+    <div class="main-body">
+
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="main-breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a th:href="@{/user/profile}">Profile</a></li>
+                <li class="breadcrumb-item"><a th:href="@{/user/productall}">News</a></li>
+                <li class="breadcrumb-item"><a th:href="@{/user/sportall}">Form</a></li>
+                <li class="breadcrumb-item"><a th:href="@{/logout}">Log out</a></li>
+                <li class="breadcrumb-item"><a th:href="@{/user/n}">Sign in</a></li>
+            </ol>
+        </nav>
+        <!-- /Breadcrumb -->
+
+        <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+                            <div class="mt-3" th:each = "inform : ${information}">
+                                <h4 th:text="${information.firstName}"> </h4>
+                                <h4 th:text="${information.secondName}"> [[${inform.secondName}]]</h4>
+                                <p class="text-secondary mb-1">Welcome to your profile!</p>
+                                <button class="btn btn-primary" style="background-color: #2A5379; border: forestgreen; color: white;">
+                                    <a th:href="@{/user/productall}"  style="color: white">Check news</a></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mt-3"  th:each="infor, itemStat : *{information.quest}">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                            <h6 class="mb-0">Dormitory</h6>
+                            <span class="text-secondary" th:text="${infor.getHeight()}"></span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                            <h6 class="mb-0">Appartment</h6>
+                            <span class="text-secondary" th:text="${infor.getWeight()}"></span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                            <h6 class="mb-0">Room</h6>
+                            <span class="text-secondary" th:text="${infor.getAge()}"></span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                            <h6 class="mb-0">Living city</h6>
+                            <span class="text-secondary" th:text="${infor.getLifestyle()}"></span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-end align-items-center flex-wrap">
+                            
+                            <a class="btn btn-info " type="button" style="background-color: #2A5379; border: #3f7622; color: white;" th:href="@{/user/updatequest}">Edit</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div  class="card mb-3">
+                    <div class="card-body" th:each = "inform : ${information}">
+                        <div class="row" >
+                            <div class="col-sm-3" >
+                                <h6 class="mb-0">First Name</h6>
+                            </div>
+                            <div  th:text="${information.firstName}" class="col-sm-9 text-secondary">
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Second Name</h6>
+                            </div>
+                            <div th:text="${information.secondName}" class="col-sm-9 text-secondary" >
+
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Phone</h6>
+                            </div>
+                            <div th:text="${information.phone}" class="col-sm-9 text-secondary">
+
+
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Email</h6>
+                            </div>
+                            <div th:text="${information.email}" class="col-sm-9 text-secondary">
+
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Password</h6>
+                            </div>
+                            <div th:text="${information.password}" class="col-sm-9 text-secondary">
+                            </div>
+                        </div>
+                        <hr>
+
+
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <a class="btn btn-info " style="background-color: #2A5379; border: #3f7622; color: white;" type="button" th:href="@{/user/updateinfo}">Edit</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row gutters-sm">
+
+
+
+                    <div class="col-sm-6 mb-3" >
+                        <div class="card h-100"  >
+                            <div class="card-body">
+                                <table  >
+                                    <thead>
+                                    <tr>
+                                        <th>Сomplaint form</th>
+                                    
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr th:each="inf, itemStat : *{information.products}">
+                                        <td th:text="${inf.getFood_name()}"></td>
+                                    <td></td>
+                                      <td></td>
+                                        <td></td>
+                                        <td >
+                                            <a th:href="@{delProducts/{id} (id =${inf.id})}" style="background-color: #2A5379; border: #3f7622; color: white; margin-top: 30px; margin-left: 10px;" class="btn btn-danger" role="button">Fill form</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <table  >
+                                    <thead>
+                                    <tr>
+                                        <th>Direction 1</th>
+                                        
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr th:each="inf, itemStat : *{information.sport}">
+                                        <td th:text="${inf.getSport_name()}"></td>
+                                        <td ></td>
+                                        <td ></td>
+                                        <td ></td>
+                                        <td ></td>
+                                        <td ></td>
+
+                                        <td>
+                                            <a th:href="@{delSport/{id} (id =${inf.id})}" style="background-color: #2A5379; border: #3f7622; color: white;  margin-top: 30px; margin-left: 15px;" class="btn btn-danger" role="button">Check</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
