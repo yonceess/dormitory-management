@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang=en xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+
+  <meta charset="UTF-8">
+  <meta charset="ISO-8859-1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Boxicons -->
+
+  <link rel="stylesheet" href="../static/css/res.css"  th:href="@{/css/res.css}">
+  <link rel="stylesheet" href="../static/css/addUser1.css"  th:href="@{/css/addUser1.css}">
+
+
+  <title>Requests</title>
+</head>
+<body>
+
+
+<!-- SIDEBAR -->
+<section id="sidebar">
+  <a href="#" class="brand">
+    <i class='bx bxs-smile'></i>
+    <span class="text">AITU Dormitory</span>
+  </a>
+  <ul class="side-menu top">
+    <li>
+      <a th:href="@{'/admin/adminMain'}">
+        <i class='bx bxs-dashboard' ></i>
+        <span class="text">Main page</span>
+      </a>
+    </li>
+    <li>
+      <a th:href="@{'/admin/students/0'}">
+        <i class='bx bxs-shopping-bag-alt' ></i>
+        <span class="text">Students</span>
+      </a>
+    </li>
+    <li>
+      <a th:href="@{'/admin/news/0'}">
+        <i class='bx bxs-doughnut-chart' ></i>
+        <span class="text">News</span>
+      </a>
+    </li>
+    <li>
+      <a th:href="@{'/admin/items/0'}">
+        <i class='bx bxs-message-dots' ></i>
+        <span class="text">Requests</span>
+      </a>
+    </li>
+    <li>
+      <a th:href="@{'/admin/form/0'}">
+        <i class='bx bxs-message-dots' ></i>
+        <span class="text">Absence requests</span>
+      </a>
+    </li>
+    <li class="active">
+      <a th:href="@{'/admin/register'}">
+        <i class='bx bxs-group' ></i>
+        <span class="text">Add student</span>
+      </a>
+    </li>
+    <li>
+      <a th:href="@{'/admin/saveNews'}">
+        <i class='bx bxs-group' ></i>
+        <span class="text">Add news</span>
+      </a>
+    </li>
+  </ul>
+  <ul class="side-menu">
+    <li>
+      <a th:href="@{'/admin/profile'}">
+        <i class='bx bxs-cog' ></i>
+        <span class="text">Profile</span>
+      </a>
+    </li>
+    <li>
+      <a th:href="@{'/logout'}" class="logout">
+        <i class='bx bxs-log-out-circle' ></i>
+        <span class="text">Logout</span>
+      </a>
+    </li>
+  </ul>
+</section>
+<!-- SIDEBAR -->
+
+
+
+<!-- CONTENT -->
+<section id="content">
+  <!-- NAVBAR -->
+  <nav>
+    <a th:href="@{'/admin/profile'}" class="profile" style="margin-left: 1000px; text-decoration: none; margin-top: 4px; color: var(--blue)">
+      <div style="display: flex; flex-direction: row; align-content: space-between">
+        <p th:text="${information.email}" style="margin-top: 5px"></p>
+        <img style="margin-left: 20px" src="https://cdn-icons-png.flaticon.com/512/3237/3237472.png">
+      </div>
+    </a>
+  </nav>
+  <!-- NAVBAR -->
+
+  <!-- MAIN -->
+  <main>
+    <div class="formbold-main-wrapper" >
+      <div class="formbold-form-wrapper">
+        <form method="POST" action="#" th:action="@{/admin/register}" th:object="${proRequest}">
+          <div class="formbold-form-title">
+            <h2 class="">Add Student form</h2>
+
+          </div>
+          <div class="formbold-mb-3">
+            <label for="fname" class="formbold-form-label">
+              First Name
+            </label>
+            <input
+                    type="text"
+                    name="fname"
+                    id="fname"
+                    class="formbold-form-input" th:field="*{firstname}"
+            />
+            <div style="color: red" th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}">
+              Name error</div>
+          </div>
+
+          <div class="formbold-mb-3">
+            <label for="lname" class="formbold-form-label">
+              Last Name
+            </label>
+            <input
+                    type="text"
+                    name="lname"
+                    id="lname"
+                    class="formbold-form-input" th:field="*{lastname}"
+            />
+
+            <div style="color: red" th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}">
+              Name error</div>
+          </div>
+
+          <div class="formbold-mb-3">
+            <label for="email" class="formbold-form-label">
+              Email
+            </label>
+            <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    class="formbold-form-input" th:field="*{email}"
+            />  <div style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
+            Name error</div>
+          </div>
+
+          <div class="formbold-input-flex">
+
+            <div>
+              <label for="dorm" class="formbold-form-label">
+                Dormitory
+              </label>
+              <input
+                      type="text"  name="dorm"  id="dorm"
+                      class="formbold-form-input" th:field="*{dormitory}"
+              />
+              <div style="color: red" th:if="${#fields.hasErrors('dormitory')}" th:errors="*{dormitory}">
+                Name error</div>
+            </div>
+            <div>
+              <label for="apartment" class="formbold-form-label"> Apartment </label>
+              <input
+                      type="text" name="apartment" id="apartment"
+                      class="formbold-form-input" th:field="*{apartment}"
+              /> <div style="color: red" th:if="${#fields.hasErrors('apartment')}" th:errors="*{apartment}">
+              Name error</div>
+            </div>
+          </div>
+
+          <div class="formbold-input-flex">
+            <div>
+              <label for="room" class="formbold-form-label"> Room </label>
+              <input
+                      type="number"
+                      name="room"
+                      id="room"
+                      class="formbold-form-input"  th:field="*{room}"
+              /> <div style="color: red" th:if="${#fields.hasErrors('room')}" th:errors="*{room}">
+              Name error</div>
+            </div>
+            <div>
+              <label for="phone" class="formbold-form-label"> ID card number  </label>
+              <input
+                      type="text"
+                      name="phone"
+                      id="phone"
+                      class="formbold-form-input" th:field="*{idCard}"
+              /> <div style="color: red" th:if="${#fields.hasErrors('idCard')}" th:errors="*{idCard}">
+              Name error</div>
+            </div>
+          </div>
+
+          <div class="formbold-mb-3">
+            <label for="password" class="formbold-form-label">
+              Password
+            </label>
+            <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    class="formbold-form-input" th:field="*{password}"
+            />  <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
+            Name error</div>
+          </div>
+          <button type="submit" class="formbold-btn">Add Student</button>
+        </form>
+      </div>
+    </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <!-- MAIN -->
+</section>
+<!-- CONTENT -->
+
+
+<script src="script.js"></script>
+</body>
+</html>
+

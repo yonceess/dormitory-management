@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang=en xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+
+  <meta charset="UTF-8">
+  <meta charset="ISO-8859-1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Boxicons -->
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="../static/css/userProfile.css"  th:href="@{/css/userProfile.css}">
+
+
+  <title>Requests</title>
+</head>
+<body>
+
+
+<!-- SIDEBAR -->
+<section id="sidebar" style="background-color: #1a1f36">
+  <a href="#" class="brand" style="background-color: #1a1f36; text-decoration: none;">
+    <i class='bx bxs-smile'></i>
+    <span class="text" >AITU Dormitory</span>
+  </a>
+  <ul class="side-menu top" >
+    <li>
+      <a th:href="@{'/user/allnews/0'}" style="background-color: #1a1f36; color: white; text-decoration: none;">
+        <i class='bx bxs-dashboard' ></i>
+        <span class="text">Main page</span>
+      </a>
+    </li>
+    <li>
+      <a th:href="@{'/user/createItem'}"  style="background-color: #1a1f36; color: white; text-decoration: none;">
+        <i class='bx bxs-doughnut-chart' ></i>
+        <span class="text">Special form</span>
+      </a>
+    </li>
+    <li>
+      <a th:href="@{'/user/createForm'}" style="background-color: #1a1f36; color: white; text-decoration: none;">
+        <i class='bx bxs-message-dots' ></i>
+        <span class="text">Absence form</span>
+      </a>
+    </li>
+    <li>
+      <a href="#" style="background-color: #1a1f36; color: white; text-decoration: none;">
+        <i class='bx bxs-message-dots' ></i>
+        <span class="text">Example of applications</span>
+      </a>
+    </li>
+  </ul>
+  <ul class="side-menu">
+    <li class="active">
+      <a th:href="@{'/user/profile'}" style="background-color: #1a1f36 ; color: white; text-decoration: none;">
+        <i class='bx bxs-shopping-bag-alt' ></i>
+        <span class="text">Profile</span>
+      </a>
+    </li>
+    <li>
+      <a th:href="@{'logout'}" class="logout" style="background-color: #1a1f36;  text-decoration: none;">
+        <i class='bx bxs-log-out-circle' ></i>
+        <span class="text">Logout</span>
+      </a>
+    </li>
+  </ul>
+</section>
+<!-- SIDEBAR -->
+
+
+
+<!-- CONTENT -->
+<section id="content">
+  <!-- NAVBAR -->
+  <nav>
+    <a th:href="@{'/user/profile'}" class="profile" style="margin-left: 1030px; text-decoration: none; margin-top: 4px">
+      <div style="display: flex; flex-direction: row; align-content: space-between">
+      <p th:text="${information.email}" style="margin-top: 5px"></p>
+      <img style="margin-left: 20px" src="https://cdn-icons-png.flaticon.com/512/3237/3237472.png">
+      </div>
+    </a>
+  </nav>
+  <!-- NAVBAR -->
+
+  <!-- MAIN -->
+  <main>
+    <div class="container rounded bg-white mt-2 mb-5"  >
+      <div class="row">
+        <div class="col-md-3 border-right">
+          <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://cdn-icons-png.flaticon.com/512/3237/3237472.png">
+            <span class="font-weight-bold"><h5 th:text="${information.firstname}"></h5><h5 th:text="${information.lastname}"></h5></span>
+            <span class="text-black-50" th:text="${information.email}"></span><span> </span></div>
+        </div>
+        <div class="col-md-9 border-right">
+          <div class="p-3 py-5">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h4 class="text-right">Profile</h4>
+            </div>
+            <div class="row mt-3" th:each = "inform : ${information}">
+
+              <div class="card-body" th:each = "inform : ${information}">
+                <div class="row" >
+                  <div class="col-sm-3" >
+                    <h6 class="mb-0">First Name</h6>
+                  </div>
+                  <div  th:text="${information.firstname}" class="col-sm-9 text-secondary">
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <h6 class="mb-0">Second Name</h6>
+                  </div>
+                  <div th:text="${information.lastname}" class="col-sm-9 text-secondary" >
+
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <h6 class="mb-0">Email</h6>
+                  </div>
+                  <div th:text="${information.email}" class="col-sm-9 text-secondary">
+
+
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <h6 class="mb-0">Id Card Number</h6>
+                  </div>
+                  <div th:text="${information.idCard}" class="col-sm-9 text-secondary">
+
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <h6 class="mb-0">Dormitory</h6>
+                  </div>
+                  <div th:text="${information.dormitory}" class="col-sm-9 text-secondary">
+
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <h6 class="mb-0">Apartment</h6>
+                  </div>
+                  <div th:text="${information.apartment}" class="col-sm-9 text-secondary">
+
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <h6 class="mb-0">Room</h6>
+                  </div>
+                  <div th:text="${information.room}" class="col-sm-9 text-secondary">
+
+                  </div>
+                </div>
+                <hr>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+
+    <div class="row" style="margin-left: 27px" ><h5><b> Form Requests</b></h5></div>
+    <div class="container rounded bg-white mt-2 mb-5"  >
+      <div class="row">
+        <div class="col-md-4 border-right">
+            <span class="font-weight-bold" style="text-align: center"><p style="margin-top: 30px">Dormitory</p></span>
+        </div>
+        <div class="col-md-8 border-right">
+          <span class="font-weight-bold" style="text-align: center"><p style="margin-top: 30px">Problem</p></span>
+        </div>
+      </div>
+        <hr>
+      <div class="row" th:each = "item : ${items}">
+          <div class="col-md-4 border-right">
+              <span class="font-weight-bold" style="text-align: center"><p  th:text="${item.description_dorm}"></p></span>
+          </div>
+            <div class="col-md-8 border-right">
+              <span class="font-weight-bold" style="text-align: center"><p th:text="${item.problem}"></p></span>
+            </div>
+
+          </div>
+    </div>
+
+
+
+
+  </main>
+  <!-- MAIN -->
+</section>
+<!-- CONTENT -->
+
+
+<script src="script.js"></script>
+</body>
+</html>
