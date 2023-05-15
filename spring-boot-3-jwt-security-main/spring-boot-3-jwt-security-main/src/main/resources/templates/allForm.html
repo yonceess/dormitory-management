@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang=en xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+
+  <meta charset="UTF-8">
+  <meta charset="ISO-8859-1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Boxicons -->
+
+  <link rel="stylesheet" href="../static/css/res.css"  th:href="@{/css/res.css}">
+
+  <title>Form List</title>
+</head>
+<body>
+
+
+<!-- SIDEBAR -->
+<section id="sidebar">
+  <a href="#" class="brand">
+    <i class='bx bxs-smile'></i>
+    <span class="text">AITU Dormitory</span>
+  </a>
+  <ul class="side-menu top">
+    <li>
+      <a th:href="@{'/admin/adminMain'}">
+        <i class='bx bxs-dashboard' ></i>
+        <span class="text">Main page</span>
+      </a>
+    </li>
+    <li>
+      <a th:href="@{'/admin/students/0'}">
+        <i class='bx bxs-shopping-bag-alt' ></i>
+        <span class="text">Students</span>
+      </a>
+    </li>
+    <li>
+      <a th:href="@{'/admin/news/0'}">
+        <i class='bx bxs-doughnut-chart' ></i>
+        <span class="text">News</span>
+      </a>
+    </li>
+    <li>
+      <a th:href="@{'/admin/items/0'}">
+        <i class='bx bxs-message-dots' ></i>
+        <span class="text">Requests</span>
+      </a>
+    </li>
+    <li class="active">
+      <a th:href="@{'/admin/form/0'}">
+        <i class='bx bxs-message-dots' ></i>
+        <span class="text">Absence requests</span>
+      </a>
+    </li>
+    <li>
+      <a th:href="@{'/admin/register'}">
+        <i class='bx bxs-group' ></i>
+        <span class="text">Add student</span>
+      </a>
+    </li>
+    <li>
+      <a th:href="@{'/admin/saveNews'}">
+        <i class='bx bxs-group' ></i>
+        <span class="text">Add news</span>
+      </a>
+    </li>
+  </ul>
+  <ul class="side-menu">
+    <li>
+      <a th:href="@{'/admin/profile'}">
+        <i class='bx bxs-cog' ></i>
+        <span class="text">Profile</span>
+      </a>
+    </li>
+    <li>
+      <a th:href="@{'/logout'}" class="logout">
+        <i class='bx bxs-log-out-circle' ></i>
+        <span class="text">Logout</span>
+      </a>
+    </li>
+  </ul>
+</section>
+<!-- SIDEBAR -->
+
+
+
+<!-- CONTENT -->
+<section id="content">
+  <!-- NAVBAR -->
+  <nav>
+    <a th:href="@{'/admin/profile'}" class="profile" style="margin-left: 1000px; text-decoration: none; margin-top: 4px; color: var(--blue)">
+      <div style="display: flex; flex-direction: row; align-content: space-between">
+        <p th:text="${information.email}" style="margin-top: 5px"></p>
+        <img style="margin-left: 20px" src="https://cdn-icons-png.flaticon.com/512/3237/3237472.png">
+      </div>
+    </a>
+  </nav>
+  <!-- NAVBAR -->
+
+  <!-- MAIN -->
+  <main>
+
+
+    <div class="table-data">
+      <div class="order">
+        <div class="head">
+          <h3>Form' List</h3>
+          <i class='bx bx-search' ></i>
+          <i class='bx bx-filter' ></i>
+        </div>
+        <table >
+          <thead >
+          <tr>
+            <th style="width: 15%;">Name</th>
+            <th style="width: 12%; ">Phone</th>
+            <th style="width: 10%; ">Date</th>
+            <th style="width: 30%; ">Reason</th>
+            <th style="width: 17%; ">Address</th>
+            <th style="width: 10%;">Email</th>
+          </tr>
+          </thead>
+          <tbody>
+
+          <tr class="info" th:each = "form : ${forms}" >
+            <td  th:text="${form.name}" ></td>
+            <td  th:text="${form.phone}"></td>
+            <td  th:text="${form.date}"></td>
+            <td th:text="${form.reason}"></td>
+            <td th:text="${form.address}"></td>
+            <td th:text="${form.email}"></td>
+          </tr>
+
+          </tbody>
+        </table>
+        <div class="row container" th:if = "${totalPages > 1}">
+          <ul class="pagination">
+            <li><a th:if="${currentPage < totalPages}" th:href="@{'/admin/form/' + ${currentPage + 1}}">Next</a>
+              <span th:unless="${currentPage < totalPages}">Next</span></li>
+            <li class="pagination" th:each="i: ${#numbers.sequence(1, totalPages)}">
+              <a th:if="${currentPage != i}" th:href="@{'/admin/form/' + ${i - 1}}"
+              >[[${i}]]</a>
+              <a th:unless="${currentPage != i}" th:href="@{'/admin/form/' + ${i - 1}}"
+              >[[${i}]]</a>
+            </li>
+            <li><a th:if="${currentPage < totalPages}" th:href="@{'/admin/form/' + ${totalPages - 1}}">Last</a>
+              <span th:unless="${currentPage < totalPages}">Last</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+  <!-- MAIN -->
+</section>
+<!-- CONTENT -->
+
+</body>
+</html>

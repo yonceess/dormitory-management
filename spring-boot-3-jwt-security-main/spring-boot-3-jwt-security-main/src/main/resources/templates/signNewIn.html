@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang=en xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+
+  <meta charset="UTF-8">
+  <meta charset="ISO-8859-1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Add User</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="../static/css/news.css"  th:href="@{/css/news.css}">
+
+  <!-- Main css -->
+</head>
+<body style="background-color: #192f59">
+<div class="container">
+  <form method="post"  action="#" th:action="@{/api/v1/auth/authenticateUser}" th:object="${authRequest}" class="register-form" id="login-form">
+    <h1>Login</h1>
+    <label ><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" name="email" th:field="*{email}" required>
+
+    <label><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="password" required th:field="*{password}">
+
+    <button type="submit">Login</button>
+  </form>
+</div>
+</body>
+</html>
