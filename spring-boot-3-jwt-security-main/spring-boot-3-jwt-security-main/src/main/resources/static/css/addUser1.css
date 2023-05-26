@@ -5,6 +5,9 @@
     box-sizing: border-box;
     border-radius: 15px;
 }
+a{
+    text-decoration: none;
+}
 body {
     font-family: 'Inter', sans-serif;
 }

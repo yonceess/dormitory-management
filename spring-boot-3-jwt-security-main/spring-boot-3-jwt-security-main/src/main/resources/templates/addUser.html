@@ -9,7 +9,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Boxicons -->
-
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
   <link rel="stylesheet" href="../static/css/res.css"  th:href="@{/css/res.css}">
   <link rel="stylesheet" href="../static/css/addUser1.css"  th:href="@{/css/addUser1.css}">
 
@@ -20,50 +21,50 @@
 
 
 <!-- SIDEBAR -->
-<section id="sidebar">
-  <a href="#" class="brand">
+<section id="sidebar" style="text-decoration: none">
+  <a class="brand"  style="text-decoration: none">
     <i class='bx bxs-smile'></i>
     <span class="text">AITU Dormitory</span>
   </a>
   <ul class="side-menu top">
     <li>
-      <a th:href="@{'/admin/adminMain'}">
+      <a th:href="@{'/admin/adminMain'}" style="text-decoration: none">
         <i class='bx bxs-dashboard' ></i>
         <span class="text">Main page</span>
       </a>
     </li>
     <li>
-      <a th:href="@{'/admin/students/0'}">
+      <a th:href="@{'/admin/students/0'}"  style="text-decoration: none">
         <i class='bx bxs-shopping-bag-alt' ></i>
         <span class="text">Students</span>
       </a>
     </li>
     <li>
-      <a th:href="@{'/admin/news/0'}">
+      <a th:href="@{'/file/admin/news/0'}"  style="text-decoration: none">
         <i class='bx bxs-doughnut-chart' ></i>
         <span class="text">News</span>
       </a>
     </li>
     <li>
-      <a th:href="@{'/admin/items/0'}">
+      <a th:href="@{'/admin/items/0'}"  style="text-decoration: none">
         <i class='bx bxs-message-dots' ></i>
         <span class="text">Requests</span>
       </a>
     </li>
     <li>
-      <a th:href="@{'/admin/form/0'}">
+      <a th:href="@{'/admin/form/0'}"  style="text-decoration: none">
         <i class='bx bxs-message-dots' ></i>
         <span class="text">Absence requests</span>
       </a>
     </li>
     <li class="active">
-      <a th:href="@{'/admin/register'}">
+      <a th:href="@{'/admin/register'}"  style="text-decoration: none">
         <i class='bx bxs-group' ></i>
         <span class="text">Add student</span>
       </a>
     </li>
     <li>
-      <a th:href="@{'/admin/saveNews'}">
+      <a th:href="@{'/file/admin/files/new'}"  style="text-decoration: none">
         <i class='bx bxs-group' ></i>
         <span class="text">Add news</span>
       </a>
@@ -71,13 +72,13 @@
   </ul>
   <ul class="side-menu">
     <li>
-      <a th:href="@{'/admin/profile'}">
+      <a th:href="@{'/admin/profile'}"  style="text-decoration: none">
         <i class='bx bxs-cog' ></i>
         <span class="text">Profile</span>
       </a>
     </li>
     <li>
-      <a th:href="@{'/logout'}" class="logout">
+      <a th:href="@{'/logout'}" class="logout"  style="text-decoration: none">
         <i class='bx bxs-log-out-circle' ></i>
         <span class="text">Logout</span>
       </a>
@@ -92,7 +93,7 @@
 <section id="content">
   <!-- NAVBAR -->
   <nav>
-    <a th:href="@{'/admin/profile'}" class="profile" style="margin-left: 1000px; text-decoration: none; margin-top: 4px; color: var(--blue)">
+    <a th:href="@{'/admin/profile'}" class="profile" style="margin-left: 970px; text-decoration: none; margin-top: 6px; color: var(--blue)">
       <div style="display: flex; flex-direction: row; align-content: space-between">
         <p th:text="${information.email}" style="margin-top: 5px"></p>
         <img style="margin-left: 20px" src="https://cdn-icons-png.flaticon.com/512/3237/3237472.png">
@@ -106,6 +107,17 @@
     <div class="formbold-main-wrapper" >
       <div class="formbold-form-wrapper">
         <form method="POST" action="#" th:action="@{/admin/register}" th:object="${proRequest}">
+          <div class="alert alert-success" role="alert"
+               th:if="${message}" style="text-align: center; margin-top: 20px" >
+            <span th:text="${message}"></span>
+
+          </div>
+
+          <div class="alert alert-danger" role="alert"
+               th:if="${error}" style="text-align: center;margin-top: 20px">
+            <span th:text="${error}"></span>
+
+          </div>
           <div class="formbold-form-title">
             <h2 class="">Add Student form</h2>
 
@@ -120,8 +132,8 @@
                     id="fname"
                     class="formbold-form-input" th:field="*{firstname}"
             />
-            <div style="color: red" th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}">
-              Name error</div>
+            <div style="color: red" th:if="${first}">
+              <p th:text="${first}"></p></div>
           </div>
 
           <div class="formbold-mb-3">
@@ -135,8 +147,8 @@
                     class="formbold-form-input" th:field="*{lastname}"
             />
 
-            <div style="color: red" th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}">
-              Name error</div>
+            <div style="color: red" th:if="${last}">
+              <p th:text="${last}"></p></div>
           </div>
 
           <div class="formbold-mb-3">
@@ -148,8 +160,8 @@
                     name="email"
                     id="email"
                     class="formbold-form-input" th:field="*{email}"
-            />  <div style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
-            Name error</div>
+            />  <div style="color: red" th:if="${email}">
+            <p th:text="${email}"></p></div>
           </div>
 
           <div class="formbold-input-flex">
@@ -158,33 +170,42 @@
               <label for="dorm" class="formbold-form-label">
                 Dormitory
               </label>
-              <input
-                      type="text"  name="dorm"  id="dorm"
+              <select
+                       name="dorm"  id="dorm"
                       class="formbold-form-input" th:field="*{dormitory}"
-              />
-              <div style="color: red" th:if="${#fields.hasErrors('dormitory')}" th:errors="*{dormitory}">
-                Name error</div>
+              >
+                <option th:value="'male'" th:text="male"></option>
+                <option th:value="'women'" th:text="female"></option>
+                <option th:value="'mixed'" th:text="mixed"></option>
+
+              </select>
+              <div style="color: red" th:if="${dorm}">
+                <p th:text="${dorm}"></p></div>
             </div>
             <div>
               <label for="apartment" class="formbold-form-label"> Apartment </label>
               <input
                       type="text" name="apartment" id="apartment"
                       class="formbold-form-input" th:field="*{apartment}"
-              /> <div style="color: red" th:if="${#fields.hasErrors('apartment')}" th:errors="*{apartment}">
-              Name error</div>
+              /> <div style="color: red" th:if="${apart}">
+              <p th:text="${apart}"></p></div>
             </div>
           </div>
 
           <div class="formbold-input-flex">
             <div>
               <label for="room" class="formbold-form-label"> Room </label>
-              <input
-                      type="number"
-                      name="room"
-                      id="room"
-                      class="formbold-form-input"  th:field="*{room}"
-              /> <div style="color: red" th:if="${#fields.hasErrors('room')}" th:errors="*{room}">
-              Name error</div>
+              <select
+                      name="room"  id="room"
+                      class="formbold-form-input" th:field="*{room}"
+              >
+                <option th:value="'1'" th:text="1"></option>
+                <option th:value="'2'" th:text="2"></option>
+                <option th:value="'3'" th:text="3"></option>
+                <option th:value="'4'" th:text="4"></option>
+
+              </select> <div style="color: red" th:if="${room}">
+              <p th:text="${room}"></p></div>
             </div>
             <div>
               <label for="phone" class="formbold-form-label"> ID card number  </label>
@@ -193,8 +214,8 @@
                       name="phone"
                       id="phone"
                       class="formbold-form-input" th:field="*{idCard}"
-              /> <div style="color: red" th:if="${#fields.hasErrors('idCard')}" th:errors="*{idCard}">
-              Name error</div>
+              /> <div style="color: red" th:if="${idCard}">
+              <p th:text="${idCard}"></p></div>
             </div>
           </div>
 
@@ -207,10 +228,11 @@
                     name="password"
                     id="password"
                     class="formbold-form-input" th:field="*{password}"
-            />  <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
-            Name error</div>
+            />  <div style="color: red" th:if="${pass}">
+            <p th:text="${pass}"></p></div>
           </div>
           <button type="submit" class="formbold-btn">Add Student</button>
+
         </form>
       </div>
     </div>

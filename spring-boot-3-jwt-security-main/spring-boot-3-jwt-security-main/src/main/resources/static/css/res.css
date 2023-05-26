@@ -5,6 +5,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
 }
 
 a {
@@ -192,6 +193,8 @@ body {
     top: 0;
     left: 0;
     z-index: 1000;
+    text-decoration: none;
+    font-size: 14px;
 }
 #content nav::before {
     content: '';
@@ -372,7 +375,7 @@ body {
     color: white;
     cursor: pointer;
     margin-top: 5px;
-    margin-left: 205px;
+    margin-left: 200px;
 }
 .formbold-btn:hover {
     box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);

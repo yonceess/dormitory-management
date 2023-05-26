@@ -73,15 +73,7 @@
 
 <!-- CONTENT -->
 <section id="content">
-  <nav style="background-color: #1a1f36">
 
-    <a th:href="@{'/user/profile'}"  class="profile" style="margin-left: 1030px; text-decoration: none; margin-top: 4px; color: white">
-      <div style="display: flex; flex-direction: row; align-content: space-between">
-        <p th:text="${information.email}" style="margin-top: 5px"></p>
-        <img style="margin-left: 20px" src="https://cdn-icons-png.flaticon.com/512/3237/3237472.png">
-      </div>
-    </a>
-  </nav>
   <!-- MAIN -->
   <main>
 
@@ -102,9 +94,24 @@
         <div class="row" >
           <div class="col-xl-6" th:each = "info : ${news}">
             <div class="product-container card card-body" style="border-radius: 10px; margin-bottom: 15px">
-              <h5 th:text="${info.name}"></h5>
+              <h5 th:text="${info.dame}"></h5>
               <p style="margin-top: -10px" th:text="${info.date}"></p>
               <p th:text="${info.description}">3</p>
+              <p th:text="${info.fileName}">3</p>
+              <span th:if="${info.fileName.endsWith('.jpg') or info.fileName.endsWith('.jpeg') or info.fileName.endsWith('.png')}">
+    <!-- Display image -->
+                  <img th:src="${info.filePath}" alt="Image" />
+              </span>
+
+              <span th:if="${info.fileName.endsWith('.pdf')}">
+    <!-- Display PDF icon or link to PDF file -->
+                <!-- Replace 'pdf-icon.png' with the path to your PDF icon image -->
+                    <img src="pdf-icon.png" alt="PDF" />
+                <!-- or -->
+                       <a th:href="@{${info.filePath}}">Download PDF</a>
+                   </span>
+
+
               <a th:href="@{detailedNews/{id} (id=${info.id})}" class="btn btn-danger" style="background-color: #1a1f36; border-color: #1a1f36; font-size: 14px" role="button">Read more</a>          </div>
 
           </div>

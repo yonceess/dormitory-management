@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang=en xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+  <meta charset="UTF-8">
+  <meta charset="ISO-8859-1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Boxicons -->
+  <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!-- Адаптирование под мобильные устройства -->
+  <link rel="stylesheet" href="../static/css/userProfile.css"  th:href="@{/css/userProfile.css}">
+
+  <link type="text/css" rel="stylesheet" href="../static/css/reset.css"  th:href="@{/css/reset.css}"/>
+  <link type="text/css" rel="stylesheet" href="../static/css/index.css"  th:href="@{/css/index.css}"/>
+</head>
+<body>
+
+<section id="sidebar" style="background-color: #1a1f36;font-family:'Poppins', sans-serif;">
+  <a href="#" class="brand" style="background-color: #1a1f36; text-decoration: none;">
+    <i class='bx bxs-smile'></i>
+    <span class="text" >AITU Dormitory</span>
+  </a>
+  <ul class="side-menu top" >
+    <li >
+      <a th:href="@{'/file/user/allnews/0'}" style="background-color: #1a1f36; color: white; text-decoration: none;">
+        <i class='bx bxs-dashboard' ></i>
+        <span class="text">Main page</span>
+      </a>
+    </li>
+    <li>
+      <a th:href="@{'/user/createItem'}"  style="background-color: #1a1f36; color: white; text-decoration: none;">
+        <i class='bx bxs-doughnut-chart' ></i>
+        <span class="text">Special form</span>
+      </a>
+    </li>
+    <li>
+      <a th:href="@{'/user/createForm'}" style="background-color: #1a1f36 ; color: white; text-decoration: none;">
+        <i class='bx bxs-shopping-bag-alt' ></i>
+        <span class="text">Absence form</span>
+      </a>
+    </li>
+    <li class="active">
+      <a th:href="@{'/file/user/statement'}" style="background-color: #1a1f36; color: white; text-decoration: none;">
+        <i class='bx bxs-message-dots' ></i>
+        <span class="text">Example of applications</span>
+      </a>
+    </li>
+  </ul>
+  <ul class="side-menu">
+    <li>
+      <a th:href="@{'/user/profile'}" style="background-color: #1a1f36; color: white; text-decoration: none;">
+        <i class='bx bxs-cog' ></i>
+        <span class="text">Profile</span>
+      </a>
+    </li>
+    <li>
+      <a th:href="@{'/logout'}" class="logout" style="background-color: #1a1f36; text-decoration: none;">
+        <i class='bx bxs-log-out-circle' ></i>
+        <span class="text">Logout</span>
+      </a>
+    </li>
+  </ul>
+</section>
+<!-- SIDEBAR -->
+
+
+
+<!-- CONTENT -->
+<section id="content">
+
+  <!-- MAIN -->
+  <nav style="font-family:'Poppins', sans-serif;">
+    <a th:href="@{'/user/profile'}" class="profile" style="margin-left: 980px; text-decoration: none; margin-top: 4px">
+      <div style="display: flex; flex-direction: row; align-content: space-between">
+        <p th:text="${information.email}" style="margin-top: 5px"></p>
+
+        <img style="margin-left: 20px" src="https://cdn-icons-png.flaticon.com/512/3237/3237472.png">
+      </div>
+    </a>
+  </nav>
+
+  <div class="wrapper" style="margin-top: 30px">
+
+
+
+    <div class="container" >
+
+
+
+
+
+
+      <!-- RIGHT BLOCK -->
+      <div id="middle" class="clearfix">
+
+        <!-- LEFT BLOCK -->
+        <div class="content" th:each = "info : ${news}" style="width: 100%">
+
+
+          <div class="news-item medium" th:if="${#strings.containsIgnoreCase(info.fileName, 'statement')}">
+            <h4 th:text="${info.dame}" class="title-news medium"><a href="#"></a></h4>
+            <div class="news-panel">
+                <span class="n-date"><p th:text="${info.date}"></p>
+                <img src="https://freepngimg.com/thumb/folder/36792-3-folders-file.png" style="width: 3%;" alt="PDF" />
+                  <!-- or -->
+                <a th:href="@{${info.filePath}}">Download File [[${info.fileName}]]</a></span>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+
+</div>
+  <!-- MAIN -->
+</section>
+<!-- CONTENT -->
+
+
+</body>
+</html>

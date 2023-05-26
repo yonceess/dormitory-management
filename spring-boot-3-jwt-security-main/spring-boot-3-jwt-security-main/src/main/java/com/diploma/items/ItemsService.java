@@ -16,14 +16,17 @@ public class ItemsService {
 
     private final ItemsRepository itemsRepository;
 
-    public Items createItems(ItemsRequest itemsRequest, String email){
-
+    public Items createItems(ItemsRequest itemsRequest, String email, String dormitory,
+                             String apartment, int room, User user){
         var items = Items.builder().
                 name(itemsRequest.getName()).
-                description_dorm(itemsRequest.getDescription_dorm()).
+                dormitory(dormitory).
+                apartment(apartment).
+                room(room).
                 problem(itemsRequest.getProblem()).
                 phone(itemsRequest.getPhone()).
-                email(email).build();
+                email(email).
+                user(user).build();
 
         return itemsRepository.save(items);
 
@@ -49,6 +52,12 @@ public class ItemsService {
     public Page<Items> pageItem(int pageNo){
         Pageable pageable = PageRequest.of(pageNo, 5);
         Page<Items> itemPages = itemsRepository.pageItems(pageable);
+        return itemPages;
+    }
+
+    public Page<Items> searchItem(int pageNo,String keyword){
+        Pageable pageable = PageRequest.of(pageNo, 5);
+        Page<Items> itemPages = itemsRepository.search(keyword,pageable);
         return itemPages;
     }
 }

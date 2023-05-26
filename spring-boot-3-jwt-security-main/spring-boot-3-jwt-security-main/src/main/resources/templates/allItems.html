@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Boxicons -->
-
+  <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
   <link rel="stylesheet" href="../static/css/res.css"  th:href="@{/css/res.css}">
 
   <title>Requests</title>
@@ -37,7 +37,7 @@
       </a>
     </li>
     <li>
-      <a th:href="@{'/admin/news/0'}">
+      <a th:href="@{'/file/admin/news/0'}">
         <i class='bx bxs-doughnut-chart' ></i>
         <span class="text">News</span>
       </a>
@@ -61,7 +61,7 @@
       </a>
     </li>
     <li>
-      <a th:href="@{'/admin/saveNews'}">
+      <a th:href="@{'/file/admin/files/new'}">
         <i class='bx bxs-group' ></i>
         <span class="text">Add news</span>
       </a>
@@ -90,7 +90,7 @@
 <section id="content">
   <!-- NAVBAR -->
   <nav>
-    <a th:href="@{'/admin/profile'}" class="profile" style="margin-left: 1000px; text-decoration: none; margin-top: 4px; color: var(--blue)">
+    <a th:href="@{'/admin/profile'}" class="profile" style="margin-left: 970px; text-decoration: none; margin-top: 6px; color: var(--blue)">
       <div style="display: flex; flex-direction: row; align-content: space-between">
         <p th:text="${information.email}" style="margin-top: 5px"></p>
         <img style="margin-left: 20px" src="https://cdn-icons-png.flaticon.com/512/3237/3237472.png">
@@ -101,7 +101,17 @@
 
   <!-- MAIN -->
   <main>
-
+    <div class="head-title">
+      <div class="left">
+        <form  th:action="@{/admin/search-resultItem/0}" method="get">
+          <div class="form-input">
+            <input type="text" name="keyword" id="keyword" size="50" placeholder="Search" th:placeholder="Search" th:value="${keyword}" required/>
+            &nbsp;
+            <button type="submit" value="Search" />
+            &nbsp;</div>
+        </form>
+      </div>
+    </div>
 
     <div class="table-data">
       <div class="order">
@@ -115,6 +125,8 @@
           <tr>
             <th style="width: 15% ; text-align:center">Name</th>
             <th style="width: 10% ;text-align: center">Dormitory</th>
+            <th style="width: 10% ;text-align: center">Apartment</th>
+            <th style="width: 10% ;text-align: center">Room</th>
             <th style="text-align: center">Problem</th>
             <th style="width: 13%;text-align: center">Phone</th>
             <th style="width: 10%;text-align: center">Delete</th>
@@ -123,7 +135,9 @@
           <tbody>
           <tr class="info" th:each = "item : ${items}">
             <td style="text-align: center" th:text="${item.name}"></td>
-            <td style="text-align: center" th:text="${item.description_dorm}"></td>
+            <td style="text-align: center" th:text="${item.dormitory}"></td>
+            <td style="text-align: center" th:text="${item.apartment}"></td>
+            <td style="text-align: center" th:text="${item.room}"></td>
             <td style="text-align: center" th:text="${item.problem}"></td>
             <td style="text-align: center" th:text="${item.phone}"></td>
             <td style="text-align: center">

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Housing Project Nam Anh</title>
+
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <!-- FONT GOOGLE -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <!-- OWE CAROUSEL CSS  -->
+
+    <link rel="stylesheet" type="text/css" href="../static/css/owl.carousel.min.css" th:href="@{/css/owl.carousel.min.css}">
+    <link rel="stylesheet" type="text/css" href="../static/css/owl.theme.default.min.css" th:href="@{/css/owl.theme.default.min.css}">
+    <link rel="stylesheet" type="text/css" href="../static/css/lightbox.css" th:href="@{/css/lightbox.css}">
+    <link rel="stylesheet" type="text/css" href="../static/css/indexMain.css" th:href="@{/css/indexMain.css}">
+
+
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="header__housing">
+            <h4>AITU Dormitory</h4>
+        </div>
+
+        <div>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#blog">Dormitories</a></li>
+                <li><a th:href="@{/api/v1/auth/login}">Log in</a></li>
+            
+            </ul>
+        </div>
+    </header>
+
+    <!-- CAROUSEL  -->
+    <section class="carousel" id="home">
+        <div class="owl-carousel owl-theme">
+            <div class="item" style="background: black;">
+                <img src="https://novostroy.kz/Media/images/complex/big/5bce126c705e43e9b945bb62492ba01c.jpg" style="opacity: 0.4;" alt="hinh1">
+                <div class="carousel__overlay">
+                    <div class="carousel__text" >
+                        <h2>Astana IT University Housing</h2>
+                        <p>Welcome to your home away from home</p>
+                        <a th:href="@{/api/v1/auth/login}"><button class="btn">Log in</button></a>
+                    </div>
+                </div>
+            </div>
+            <div class="item" style="background: black;">
+                <img src="https://astanait.edu.kz/wp-content/uploads/2020/10/DSC02269-scaled.jpg" style="opacity: 0.4;" alt="hinh1">
+                <div class="carousel__overlay">
+                    <div class="carousel__text">
+                        <h2>Astana IT University Housing</h2>
+                        <p>Visit official website to get more information</p>
+                        <a href="https://astanait.edu.kz/university-life/student-housing/"><button class="btn">View more</button></a>
+
+                    </div>
+                </div>
+            </div>
+            <div class="item" style="background: black;">
+                <img src="https://img.the-steppe.com/images/news/5817-iErBWVHH.jpg" alt="hinh1" style="opacity: 0.4;">
+                <div class="carousel__overlay">
+                    <div class="carousel__text">
+                        <h2>Astana IT University Housing</h2>
+                        <p>Visit official website to get more information</p>
+                        <a href="https://astanait.edu.kz/university-life/student-housing/"><button class="btn">View more</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT  -->
+    <section class="about" id="about">
+        <div class="about__content">
+            <h3 style="margin-bottom: 40px;">About Dormitory</h3>
+            <div class="about__socials">
+                <div class="about__items">
+                    <i class="fa fa-house-damage"></i>
+                    <p>Places in the dormitory are provided to nonresident students.
+                    </p>
+                </div>
+                <div class="about__items">
+                    <i class="fa fa-key"></i>
+                    <p>All personal information is securely protected in the system.
+                    </p>
+                </div>
+                <div class="about__items">
+                    <i class="fa fa-money-bill-alt"></i>
+                    <p>The monthly payment for accommodation is 30,000 tenge.
+                    </p>
+                </div>
+            </div>
+            <h3 style="margin-top:40px">About University</h3>
+            <p style="margin-top:40px"class="last__item">
+                Astana IT University is the leader of innovative continuous IT education and science with stable academic traditions and high social responsibility. Astana It University provides its students with accommodation and an environment that encourages students to fulfill themselves and be more active. Living in residential buildings of the university is not only good conditions, but also an active and rich student life.
+
+
+            </p>
+        </div>
+    </section>
+
+    <!-- STATS  -->
+    <section class="stats" >
+        <div class="stats__content" >
+            <div class="stats__detail" >
+                <div class="stats__item">
+                    <p class="counter">350</p>
+                    <p>Approximately number of students</p>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+    <!-- BLOG  -->
+    <section class="blog" id="blog">
+        <div class="blog__content">
+            <h3 style="font-size: 35px; text-align: center; margin-bottom: 20px;">Dormitories</h3>
+            <div class="blog__list">
+                <div class="blog__item">
+                    <div class="blog__image">
+                        <img src="https://astanait.edu.kz/wp-content/uploads/2020/10/DSC02463-scaled.jpg" alt="g1">
+                    </div>
+                    <div class="blog__text">
+                        <h3>Male's dormitory</h3>
+                        <p>The men's dormitory consists of 7 floors, in which male persons of the youth type live.  </p>
+                    
+                    </div>
+                </div>
+
+                <div class="blog__item">
+                    <div class="blog__image">
+                        <img src="https://astanait.edu.kz/wp-content/uploads/2020/10/DSC02425-scaled.jpg" alt="g1">
+                    </div>
+                    <div class="blog__text">
+                        <h3>Female's dormitory</h3>
+                        <p>The women's dormitory consists of 6 floors, designed for girls' accommodation.</p>
+                     
+                    </div>
+                </div>
+
+                <div class="blog__item">
+                    <div class="blog__image">
+                        <img src="https://astanait.edu.kz/wp-content/uploads/2020/10/DSC02269-scaled.jpg" alt="g1">
+                    </div>
+                    <div class="blog__text">
+                        <h3>Mixed dormitory</h3>
+                        <p>The mixed dormitory is designed for both boys and girls, consists of 7 floors.      </p>
+                        
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- GETMORE -->
+    <section class="getmore">
+        <div class="getmore__video" style="background:black;">
+            <img src="https://company.bi.group/upload/project/1572856327-11.jpeg" style="opacity: 0.4;" alt="video">
+        </div>
+
+        <div class="getmore__text">
+            <h2 style="color:white; font-size: 25px; margin-top:60px">Get More Information</h2>
+            <p style="margin-top:40px">In case of detailed acquaintance with the university and dormitories, you can go to the official website of the university. Which contains detailed information about each of the types of students' homes and their equipment.</p>
+
+            <a href="https://astanait.edu.kz/university-life/student-housing/"><button class="btn1">
+                Read more
+            </button></a>
+        </div>
+    </section>
+
+ 
+ <section  style="margin-top:60px; display: flex; text-align:right; margin-left: 362px;">
+        
+        <div class="getmore__text1" style="width:400px; background: #f6f6f6;">
+            <h2 style=" font-size: 25px; margin-top:130px;">Address of the dormitory</h2>
+            <p style="margin-top:40px">All 3 dormitories are located on Kabanbai Batyr Street, in the Expo Residence residential complex. Nearby there are residential buildings, Mega, various shops. The journey from the university takes 10-15 minutes.</p>
+        </div>
+
+        <div style="max-width:100%;overflow:hidden;color:red;width:500px;height:500px;"><div id="display-google-map" style="height:100%; width:100%;max-width:100%;"><iframe style="height:100%;width:100%;border:0;" frameborder="0" src="https://www.google.com/maps/embed/v1/place?q=проспект+Кабанбай+Батыра+60а/13,+Астана,+Казахстан&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8"></iframe></div><a class="googlemaps-made" rel="nofollow" href="https://www.bootstrapskins.com/themes" id="grab-map-data">premium bootstrap themes</a><style>#display-google-map img.text-marker{max-width:none!important;background:none!important;}img{max-width:none}</style></div>
+    </section>
+
+
+
+    <!-- CONTACT -->
+    <section class="contact" id="contact" style="margin-top:60px">
+
+        <div  style="background:black;">
+           
+        </div>
+        
+        
+
+    </section>
+
+    <!-- FOOOTER -->
+    <footer>
+        <div class="footer__content">
+
+             <div class="footer__text" style="margin-left:-100px">
+                 <img style="width: 50%; " src="https://astanait.edu.kz/wp-content/uploads/2020/05/aitu-logo-white-2-300x154.png">
+             </div>
+
+            <div class="footer__text" style="margin-left:-500px">
+
+                <p> &#169; Mangilik El Avenue, 55/11<br>
+                 EXPO Business Center, block C1<br>
+                 Astana, Kazakhstan, 010000
+                    </p>
+            </div>
+
+            <div class="footer__socials">
+                <a href="https://www.facebook.com/astanaituniversity/"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://instagram.com/astana_it_university?igshid=MzRlODBiNWFlZA=="><i class="fab fa-instagram"></i></a>
+                <a href="https://astanait.edu.kz/"><i class="fa fa-wifi"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <a href="" class="backToTop cd-top text-replace js-cd-top">
+        <img src="../static/images/arrowup.png" th:src="@{/images/arrowup.png}" alt="">
+    </a>
+
+    <!-- JEQUERY CDN TO SUPPORT WEBSITE ANIMATION -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <!-- WAYPOINT CDN TO SUPPORT WEBSITE  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.js"></script>
+
+    <!-- CAROUSEL OWL JS -->
+    <script src="../static/js/owl.carousel.min.js" th:src="@{/js/owl.carousel.min.js}"></script>
+    <script>
+        $('.owl-carousel').owlCarousel({
+            loop: true,
+            margin: 10,
+            nav: false,
+            autoplay: true,
+            autoplayTimeout: 2500,
+            responsive: {
+                0: {
+                    items: 1
+                }
+            }
+        })
+    </script>
+
+    <!-- COUNTING UP NUMBER  -->
+    <script src="../static/js/jquery.countup.js" th:src="@{/js/jquery.countup.js}"></script>
+    <script>$('.counter').countUp();
+    </script>
+
+    <!-- LIGHTBOX JS -->
+    <script src="../static/js/lightbox.js" th:src="@{/js/lightbox.js}"></script>
+
+    <!-- BACK TO TOP  -->
+    <script src="../static/js/backToTop.js" th:src="@{/js/backToTop.js}"></script>
+    <script src="../static/js/util.js" th:src="@{/js/util.js}"></script>
+
+</body>
+
+</html>

@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Boxicons -->
-
+  <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
   <link rel="stylesheet" href="../static/css/res.css"  th:href="@{/css/res.css}">
 
   <title>Main page</title>
@@ -19,7 +19,7 @@
 
 <!-- SIDEBAR -->
 <section id="sidebar">
-  <a href="#" class="brand">
+  <a  class="brand"  style="text-decoration: none">
     <i class='bx bxs-smile'></i>
     <span class="text">AITU Dormitory</span>
   </a>
@@ -37,7 +37,7 @@
       </a>
     </li>
     <li>
-      <a th:href="@{'/admin/news/0'}">
+      <a th:href="@{'/file/admin/news/0'}">
         <i class='bx bxs-doughnut-chart' ></i>
         <span class="text">News</span>
       </a>
@@ -61,7 +61,7 @@
       </a>
     </li>
     <li>
-      <a th:href="@{'/admin/saveNews'}">
+      <a th:href="@{'/file/admin/files/new'}">
         <i class='bx bxs-group' ></i>
         <span class="text">Add news</span>
       </a>
@@ -90,12 +90,12 @@
 <section id="content">
   <!-- NAVBAR -->
   <nav>
-  <a th:href="@{'/admin/profile'}" class="profile" style="margin-left: 1000px; text-decoration: none; margin-top: 4px; color: var(--blue)">
-    <div style="display: flex; flex-direction: row; align-content: space-between">
-      <p th:text="${information.email}" style="margin-top: 5px"></p>
-      <img style="margin-left: 20px" src="https://cdn-icons-png.flaticon.com/512/3237/3237472.png">
-    </div>
-  </a>
+    <a th:href="@{'/admin/profile'}" class="profile" style="margin-left: 970px; text-decoration: none; margin-top: 6px; color: var(--blue)">
+      <div style="display: flex; flex-direction: row; align-content: space-between">
+        <p th:text="${information.email}" style="margin-top: 5px"></p>
+        <img style="margin-left: 20px" src="https://cdn-icons-png.flaticon.com/512/3237/3237472.png">
+      </div>
+    </a>
   </nav>
   <!-- NAVBAR -->
 

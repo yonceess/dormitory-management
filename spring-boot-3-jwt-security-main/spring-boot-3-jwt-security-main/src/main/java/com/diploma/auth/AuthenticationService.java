@@ -17,6 +17,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.nio.file.Files;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,8 +34,6 @@ public class AuthenticationService {
   public boolean register(RegisterRequest request) {
       Optional<User> check;
       check = repository.findByEmail(request.getEmail());
-      System.out.println(check.toString());
-      System.out.println(check.isEmpty());
     if(!check.isEmpty()){
       return false;
     }
@@ -57,15 +56,15 @@ public class AuthenticationService {
 
   }
 
-  public boolean authenticate(AuthenticationRequest request) {
-      if(repository.findByEmail(request.getEmail()) != null){
-    authenticationManager.authenticate(
+  public boolean authenticate(String request) {
+      if(repository.findByEmail(request) != null){
+   /* authenticationManager.authenticate(
         new UsernamePasswordAuthenticationToken(
-            request.getEmail(),
-            request.getPassword()
+                request.getEmail(),
+                request.getPassword()
         )
-    );
-    var user = repository.findByEmail(request.getEmail())
+    );*/
+    var user = repository.findByEmail(request)
         .orElseThrow();
     var jwtToken = jwtService.generateToken(user);
     revokeAllUserTokens(user);
@@ -98,28 +97,29 @@ public class AuthenticationService {
     tokenRepository.saveAll(validUserTokens);
   }
 
-  public User updateUser(RegisterRequest request){
-    Optional<User> userOptional = repository.findByEmail(request.getEmail());
-    User user1 = userOptional.get();
-    String email = user1.getEmail();
-     if(email.equals(request.getEmail())){
-       Optional<User> userOptional1 = repository.findByEmail(request.getEmail());
-       User user = userOptional1.get();
-       user.setFirstname(request.getFirstname());
-       user.setLastname(request.getLastname());
-       user.setDormitory(request.getDormitory());
-       user.setApartment(request.getApartment());
-       user.setRoom(request.getRoom());
-       user.setIdCard(request.getIdCard());
-       return repository.save(user);
-     }
-     else {
-       return null;
-     }
-   }
+
+    public User updateUser(RegisterRequest request, int id) {
+        Optional<User> userOptional = repository.findById(id);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            user.setFirstname(request.getFirstname());
+            user.setLastname(request.getLastname());
+            user.setDormitory(request.getDormitory());
+            user.setApartment(request.getApartment());
+            user.setRoom(request.getRoom());
+            user.setIdCard(request.getIdCard());
+            user.setEmail(request.getEmail());
+            return repository.save(user);
+        }
+        return null; // Or throw an exception if the user is not found
+    }
+
+
 
    public void deleteUserById(Integer id){
-    repository.deleteById(id);
+      // List<Token> tokens = tokenRepository.findByUserId(id);
+      // tokenRepository.deleteAll(tokens);
+       repository.deleteById(id);
    }
 
     public User getUser(Integer id){
@@ -180,6 +180,25 @@ public class AuthenticationService {
          User user = optUser.get();
          return user;
     }
+
+    public boolean checkByEmail(String email, String idCard){
+        Optional<User> optUser=repository.findByEmail(email);
+        Optional<User> optUser1=repository.findByIdCard(idCard);
+      if(optUser.isPresent() & optUser1.isPresent()){
+          return true;
+      }
+      else if(optUser.isPresent() & !(optUser1.isPresent())){
+          return true;
+      }
+      else if(!(optUser.isPresent()) & (optUser1.isPresent())){
+          return true;
+      }
+      else {
+          return false;
+      }
+    }
+
+
 
 
 }

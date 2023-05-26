@@ -1,14 +1,12 @@
 package com.diploma.news;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.diploma.user.User;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.util.Date;
 
 @Entity
 @Data
@@ -21,49 +19,64 @@ public class News {
     @Id
     @GeneratedValue
     private Integer id;
-    private String name;
-    private String description;
 
+    private String dame;
+
+    @Column(columnDefinition="TEXT")
+    private String description;
     private String date;
     private String fileName;
-    private String type;
-    @Lob
-    @Column(name = "imagedata",length = 1000)
-    private byte[] imageData;
+    private String filePath;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    public User user;
 
     public Integer getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getDame() {
+        return dame;
+    }
+
+    public void setDame(String dame) {
+        this.dame = dame;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getDate() {
+        return date;
     }
 
     public void setDate(String date) {
         this.date = date;
     }
 
+    public String getFilePath() {
+        return filePath;
+    }
 
-
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
 }

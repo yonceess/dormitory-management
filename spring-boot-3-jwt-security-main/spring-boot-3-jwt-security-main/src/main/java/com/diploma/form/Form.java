@@ -1,9 +1,8 @@
 package com.diploma.form;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.diploma.user.User;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,13 +19,27 @@ public class Form {
     @Id
     @GeneratedValue
     private Integer id;
+    @NotBlank(message="Enter your name':")
     private String name;
+    @NotBlank(message="Enter date':")
     private String date;
+    @NotBlank(message="Enter your address':")
     private String address;
+    @NotBlank(message="Enter your phone':")
     private String phone;
-
+    @NotBlank(message="Enter your reason':")
     private String reason;
+    @NotBlank(message="Enter your email':")
+    @Email(message = "Enter valid email address")
     private String email;
+
+    private String dormitory;
+    private String apartment;
+    private int room;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    public User user;
 
     public Integer getId() {
         return id;
@@ -82,5 +95,29 @@ public class Form {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getDormitory() {
+        return dormitory;
+    }
+
+    public void setDormitory(String dormitory) {
+        this.dormitory = dormitory;
+    }
+
+    public String getApartment() {
+        return apartment;
+    }
+
+    public void setApartment(String apartment) {
+        this.apartment = apartment;
+    }
+
+    public int getRoom() {
+        return room;
+    }
+
+    public void setRoom(int room) {
+        this.room = room;
     }
 }

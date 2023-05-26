@@ -37,7 +37,7 @@
       </a>
     </li>
     <li class="active">
-      <a th:href="@{'/admin/news/0'}">
+      <a th:href="@{'/file/admin/news/0'}">
         <i class='bx bxs-doughnut-chart' ></i>
         <span class="text">News</span>
       </a>
@@ -61,7 +61,7 @@
       </a>
     </li>
     <li>
-      <a th:href="@{'/admin/saveNews'}">
+      <a th:href="@{'/file/admin/files/new'}">
         <i class='bx bxs-group' ></i>
         <span class="text">Add news</span>
       </a>
@@ -90,7 +90,7 @@
 <section id="content">
   <!-- NAVBAR -->
   <nav>
-    <a th:href="@{'/admin/profile'}" class="profile" style="margin-left: 1000px; text-decoration: none; margin-top: 4px; color: var(--blue)">
+    <a th:href="@{'/admin/profile'}" class="profile" style="margin-left: 970px; text-decoration: none; margin-top: 6px; color: var(--blue)">
       <div style="display: flex; flex-direction: row; align-content: space-between">
         <p th:text="${information.email}" style="margin-top: 5px"></p>
         <img style="margin-left: 20px" src="https://cdn-icons-png.flaticon.com/512/3237/3237472.png">
@@ -115,16 +115,22 @@
           <tr>
             <th>Name</th>
             <th>Date</th>
+            <th>File Name</th>
+            <th>File</th>
             <th>Delete</th>
           </tr>
           </thead>
           <tbody>
 
           <tr class="info" th:each = "newss : ${news}">
-            <td th:text="${newss.name}"></td>
+            <td th:text="${newss.dame}"></td>
             <td th:text="${newss.date}"></td>
+            <td th:text="${newss.fileName}"></td>
             <td>
-              <a th:href="@{deleteNews/{id} (id=${newss.id})}" class="btn btn-danger" role="button">Delete</a>
+              <a th:href="@{${newss.filePath}}">Download File</a>
+            </td>
+            <td>
+              <a th:href="@{/file/admin/news/deleteNews/{id} (id=${newss.id})}" class="btn btn-danger" role="button">Delete</a>
             </td>
           </tr>
 
@@ -132,15 +138,15 @@
         </table>
         <div class="row container" th:if = "${totalPages > 1}">
           <ul class="pagination">
-            <li><a th:if="${currentPage < totalPages}" th:href="@{'/admin/news/' + ${currentPage + 1}}">Next</a>
+            <li><a th:if="${currentPage < totalPages}" th:href="@{'/file/admin/news/' + ${currentPage + 1}}">Next</a>
               <span th:unless="${currentPage < totalPages}">Next</span></li>
             <li class="pagination" th:each="i: ${#numbers.sequence(1, totalPages)}">
-              <a th:if="${currentPage != i}" th:href="@{'/admin/news/' + ${i - 1}}"
+              <a th:if="${currentPage != i}" th:href="@{'/file/admin/news/' + ${i - 1}}"
               >[[${i}]]</a>
-              <a th:unless="${currentPage != i}" th:href="@{'/admin/news/' + ${i - 1}}"
+              <a th:unless="${currentPage != i}" th:href="@{'/file/admin/news/' + ${i - 1}}"
               >[[${i}]]</a>
             </li>
-            <li><a th:if="${currentPage < totalPages}" th:href="@{'/admin/news/' + ${totalPages -1}}">Last</a>
+            <li><a th:if="${currentPage < totalPages}" th:href="@{'/file/admin/news/' + ${totalPages -1}}">Last</a>
               <span th:unless="${currentPage < totalPages}">Last</span></li>
           </ul>
         </div>

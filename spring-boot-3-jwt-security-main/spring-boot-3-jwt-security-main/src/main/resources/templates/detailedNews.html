@@ -11,8 +11,8 @@
 
   <!-- Boxicons -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link rel="stylesheet" href="../static/css/itemsForm.css"  th:href="@{/css/itemsForm.css}">
   <link rel="stylesheet" href="../static/css/res.css"  th:href="@{/css/res.css}">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="../static/css/detailedNews.css"  th:href="@{/css/detailedNews.css}">
@@ -22,53 +22,46 @@
 <body>
 
 
-<!-- SIDEBAR -->
-<section id="sidebar" style="background-color: #1a1f36">
-  <a href="#" class="brand" style="background-color: #1a1f36; text-decoration: none;">
+<section id="sidebar" style="background-color: #1a1f36;font-family:'Poppins', sans-serif;">
+  <a href="#" class="brand" style="background-color: #1a1f36; text-decoration: none;color: #3c91e6">
     <i class='bx bxs-smile'></i>
     <span class="text" >AITU Dormitory</span>
   </a>
   <ul class="side-menu top" >
-    <li>
-      <a th:href="@{'/user/allnews/0'}" style="background-color: #1a1f36; color: white; text-decoration: none;">
+    <li class="active">
+      <a th:href="@{'/file/user/allnews/0'}" style="background-color: #1a1f36; color: white; text-decoration: none;">
         <i class='bx bxs-dashboard' ></i>
         <span class="text">Main page</span>
       </a>
     </li>
     <li>
-      <a href="#" style="background-color: #1a1f36 ; color: white; text-decoration: none;">
-        <i class='bx bxs-shopping-bag-alt' ></i>
-        <span class="text">See profile</span>
-      </a>
-    </li>
-    <li>
-      <a th:href="@{'/user/createItem'}" style="background-color: #1a1f36; color: white; text-decoration: none;">
+      <a th:href="@{'/user/createItem'}"  style="background-color: #1a1f36; color: white; text-decoration: none;">
         <i class='bx bxs-doughnut-chart' ></i>
         <span class="text">Special form</span>
       </a>
     </li>
     <li>
-      <a href="#" style="background-color: #1a1f36; color: white; text-decoration: none;">
-        <i class='bx bxs-message-dots' ></i>
-        <span class="text">Example of applications</span>
+      <a th:href="@{'/user/createForm'}" style="background-color: #1a1f36 ; color: white; text-decoration: none;">
+        <i class='bx bxs-shopping-bag-alt' ></i>
+        <span class="text">Absence form</span>
       </a>
     </li>
-    <li class="active">
-      <a th:href="@{'/user/allnews/0'}" style="background-color: #1a1f36; color: white; text-decoration: none;">
-        <i class='bx bxs-group' ></i>
-        <span class="text">News</span>
+    <li>
+      <a th:href="@{/file/user/statement}" style="background-color: #1a1f36; color: white; text-decoration: none;">
+        <i class='bx bxs-message-dots' ></i>
+        <span class="text">Example of applications</span>
       </a>
     </li>
   </ul>
   <ul class="side-menu">
     <li>
-      <a href="#" style="background-color: #1a1f36; color: white; text-decoration: none;">
+      <a th:href="@{'/user/profile'}" style="background-color: #1a1f36; color: white; text-decoration: none;">
         <i class='bx bxs-cog' ></i>
-        <span class="text">Settings</span>
+        <span class="text">Profile</span>
       </a>
     </li>
     <li>
-      <a href="#" class="logout" style="background-color: #1a1f36; color: white; text-decoration: none;">
+      <a th:href="@{'/logout'}" class="logout" style="background-color: #1a1f36; text-decoration: none;">
         <i class='bx bxs-log-out-circle' ></i>
         <span class="text">Logout</span>
       </a>
@@ -81,26 +74,47 @@
 
 <!-- CONTENT -->
 <section id="content">
+  <nav style="font-family:'Poppins', sans-serif; background-color: #1a1f36; color: white">
+    <a th:href="@{'/user/profile'}" class="profile" style="margin-left: 980px; text-decoration: none; margin-top: 8px; color: white">
+      <div style="display: flex; flex-direction: row; align-content: space-between">
+        <p th:text="${information.email}" style="margin-top: 9px"></p>
 
+        <img style="margin-left: 20px;margin-top: 3px" src="https://cdn-icons-png.flaticon.com/512/3237/3237472.png">
+      </div>
+    </a>
+  </nav>
   <!-- MAIN -->
   <main>
 
     <div style="display: flex; flex-direction: row;">
       <section class="featured-news"  th:each = "inform : ${news}">
         <div class="featured-news-details">
-          <p class="pmain" th:text="${news.name}"></p>
+          <p class="pmain" th:text="${news.dame}"></p>
           <p class="pdate" th:text="${news.date}"></p>
         </div>
-        <div class="featured-news-image">
-          <img src="th:text='${information.linkPicture}'" alt="Featured News Image">
-          <a th:href="@{/user/detailedNews/{id}(id=${news.id})}">
-            <img th:src="${news.imageData}">Download</img>
-          </a>
+        <div>
+
+          <div class="article-img "
+               th:if="${news.fileName.endsWith('.jpg') or news.fileName.endsWith('.jpeg') or news.fileName.endsWith('.png')}">
+
+                   <img th:src="${news.filePath}" style="width: 50%; height: 50%" alt="Image" />
+
+          </div>
+
+
+          <div class="article-img" th:if="${news.fileName.endsWith('.pdf') or news.fileName.endsWith('.docx') or news.fileName.endsWith('.xlsx')}">
+            <img src="https://freepngimg.com/thumb/folder/36792-3-folders-file.png"style="width: 3%;">
+            <a th:href="@{${news.filePath}}">Download File [[${news.fileName}]]</a>
+          </div>
         </div>
-        <div class="featured-news-details">
-          <p class="description" th:text="${news.description}"></p>
-          <a th:href="@{/user/allnews/0}" class="btn btn-danger" style="background-color: #1a1f36; color: white;border: none" role="button">Back</a>
+
+
+
+        <div class="featured-news-details" style="text-align: justify; margin-right: 30px">
+          <p class="description" th:utext="${#strings.replace(news.description, '\n', '<br>')}" ></p>
+          <a th:href="@{/file/user/allnews/0}" class="btn btn-danger" style="background-color: #1a1f36; color: white;border: none" role="button">Back</a>
         </div>
+
       </section>
     </div>
 
@@ -113,8 +127,6 @@
 </section>
 <!-- CONTENT -->
 
-
-<script src="script.js"></script>
 
 </body>
 </html>

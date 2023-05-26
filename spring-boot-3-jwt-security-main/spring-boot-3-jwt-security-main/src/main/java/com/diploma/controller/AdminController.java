@@ -6,25 +6,38 @@ import com.diploma.form.Form;
 import com.diploma.form.FormService;
 import com.diploma.items.Items;
 import com.diploma.items.ItemsService;
-import com.diploma.news.News;
-import com.diploma.news.NewsRequest;
-import com.diploma.news.NewsService;
+
 import com.diploma.user.User;
-import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.security.Principal;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin")
@@ -36,16 +49,16 @@ public class AdminController {
     private ItemsService itemsService;
 
     @Autowired
-    private NewsService newsService;
-
-    @Autowired
     private FormService formService;
+
+
 
 
     @GetMapping("/adminMain")
     public String amainPage(Model model,Principal principal){
         String email = principal.getName();
         User user = service.getByEmail(email);
+service.authenticate(email);
         model.addAttribute("information", user);
         return "admin_main";
     }
@@ -59,37 +72,57 @@ public class AdminController {
         return "addUser";
     }
 
-    @GetMapping("/registerEx")
-    public String registerEx(Model model, Principal principal){
-        String email = principal.getName();
-        User user = service.getByEmail(email);
-        model.addAttribute("information", user);
-        model.addAttribute("proRequest", new RegisterRequest());
-        return "addUserEx";
-    }
 
     @PostMapping("/register")
-    public String registerUser(@Valid @ModelAttribute("proRequest") RegisterRequest request, BindingResult bindingResult,
+    public String registerUser(@Valid @ModelAttribute("proRequest") RegisterRequest request, Principal principal,
                                Model model
     ){
-        System.out.println(bindingResult.hasErrors());
-        if(bindingResult.hasErrors()){
-            return "redirect:adminMain";
-        }
-        boolean value = service.register(request);
 
-        if(value == true){
-            return "redirect:/admin/students/0 ";
+        String email = principal.getName();
+        String message = "";
+        String error = "";
+        User user = service.getByEmail(email);
+        model.addAttribute("information", user);
+        if (service.checkByEmail(request.getEmail(),request.getIdCard()) == false){
+        try {
+            service.register(request);
+            model.addAttribute("message", "Your request successfully added");
+        } catch (Exception e) {
+            if(request.getFirstname().isEmpty()){
+                model.addAttribute("first", "Name must contain from 2 to 15 letters");
+            }
+            if(request.getLastname().isEmpty()){
+                model.addAttribute("last", "Last Name must contain from 2 to 30 letters");
+            }
+            if(request.getEmail().isEmpty()){
+                model.addAttribute("email", "Use valid email");
+            }
+            if(request.getDormitory().isEmpty()){
+                model.addAttribute("dorm", "Dormitory must not be empty");
+            }
+           if(request.getApartment().isEmpty()){
+                model.addAttribute("apart", "Apartment must not be empty");
+            }
+
+            if(request.getIdCard().isEmpty()){
+                model.addAttribute("idCard", "idCard must contain 6 characters");
+            }
+            if(request.getPassword().isEmpty()){
+                model.addAttribute("pass", "Password must not be empty");
+            }
+            model.addAttribute("error",
+                    "Please check all rows");
         }
+}
         else {
-            return "redirect:adminMain";
+            model.addAttribute("error",
+                    "User with this email or number of IdCard exists");
+
         }
+        return "addUser";
     }
 
-    @ExceptionHandler(ConstraintViolationException.class)
-    public String handleConstraintViolationException(ConstraintViolationException ex, Model model) {
-        return "redirect:registerEx";
-    }
+
 
     @GetMapping("/students/profile/{id}")
     public String profileUser(@PathVariable("id") Integer id, Model model) {
@@ -120,19 +153,20 @@ public class AdminController {
         User userRequest = service.getUser(id);
         model.addAttribute("userReq", new RegisterRequest());
         model.addAttribute("users", userRequest);
+        model.addAttribute("idd", id);
         return "editProfile";
     }
 
     @PostMapping("/update")
-    public String updateUser(@ModelAttribute("userReq") @Valid RegisterRequest userRequest,BindingResult bindingResult) {
-        User user = service.getByEmail(userRequest.getEmail());
-        Integer in = user.getId();
-        if(bindingResult.hasErrors()){
+    public String updateUser(@ModelAttribute("userReq") @Valid RegisterRequest userRequest,@RequestParam("id") int id,BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
             return "redirect:/admin/students/0";
         }
-        service.updateUser(userRequest);
-        if (service.updateUser(userRequest) !=null) {
-            return "redirect:/admin/students/profile/"+in;
+
+        User updatedUser = service.updateUser(userRequest, id);
+
+        if (updatedUser != null) {
+            return "redirect:/admin/students/profile/" + updatedUser.getId();
         } else {
             return "redirect:/admin/students/0";
         }
@@ -179,7 +213,7 @@ public class AdminController {
     }
 
     @GetMapping("/search-result/{pageNo}")
-    public String searchProducts(@PathVariable("pageNo")int pageNo,
+    public String searchUsers(@PathVariable("pageNo")int pageNo,
                                  @RequestParam("keyword") String keyword,
                                  Model model,
                                  Principal principal){
@@ -270,6 +304,46 @@ public class AdminController {
         return "allItems";
     }
 
+    @GetMapping("/search-resultItem/{pageNo}")
+    public String searchItems(@PathVariable("pageNo")int pageNo,
+                                 @RequestParam("keyword") String keyword,
+                                 Model model,
+                                 Principal principal){
+        Page<Items> items = itemsService.searchItem(pageNo, keyword);
+        String email = principal.getName();
+        User user = service.getByEmail(email);
+        model.addAttribute("information", user);
+        model.addAttribute("title", "Search Result");
+        model.addAttribute("items", items);
+        model.addAttribute("size", items.getSize());
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", items.getTotalPages());
+        model.addAttribute("keyword", keyword);
+
+        return "searchItem";
+    }
+
+
+    @GetMapping("/search-resultForm/{pageNo}")
+    public String searchForms(@PathVariable("pageNo")int pageNo,
+                              @RequestParam("keyword") String keyword,
+                              Model model,
+                              Principal principal){
+        Page<Form> form = formService.searchForm(pageNo,keyword);
+        String email = principal.getName();
+        User user = service.getByEmail(email);
+        model.addAttribute("information", user);
+        model.addAttribute("title", "Search Result");
+        model.addAttribute("forms", form);
+        model.addAttribute("size", form.getSize());
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", form.getTotalPages());
+        model.addAttribute("keyword", keyword);
+
+        return "searchForm";
+    }
+
+
     @GetMapping("/allItems")
     public String getAllItems(Model model, Principal principal){
         String email = principal.getName();
@@ -281,7 +355,7 @@ public class AdminController {
         return "allItems";
     }
 
-    @GetMapping("/deleteItems/{id}")
+    @GetMapping("/items/deleteItems/{id}")
     public String deleteItems(@PathVariable("id") Integer id) {
         Items itemsRequest = itemsService.getItems(id);
         if (itemsRequest == null) {
@@ -290,57 +364,6 @@ public class AdminController {
         itemsService.deleteItemById(id);
         return "redirect:/admin/items/0";
 
-    }
-
-    @GetMapping("/saveNews")
-    public String createNews(Model model,
-                             Principal principal){
-        String email = principal.getName();
-        User user = service.getByEmail(email);
-        model.addAttribute("information", user);
-        model.addAttribute("newsRequest", new NewsRequest());
-        return "newsForm";
-    }
-
-    @PostMapping("/saveNewsPost")
-    public String registerNews(@ModelAttribute("newsRequest") NewsRequest request,
-                               @RequestParam("imageProduct") MultipartFile imageProduct,
-                               RedirectAttributes attributes){
-        try {
-            newsService.uploadImage(imageProduct, request);
-            attributes.addFlashAttribute("success", "Add successfully!");
-        }catch (Exception e){
-            e.printStackTrace();
-            attributes.addFlashAttribute("error", "Failed to add!");
-        }
-        return "redirect:/admin/news/0";
-
-    }
-
-    @GetMapping("/news/deleteNews/{id}")
-    public String deleteNews(@PathVariable("id") Integer id) {
-        News newsRequest = newsService.getNews(id);
-        if (newsRequest == null) {
-            return "redirect:/admin/news/0";
-        }
-        newsService.deleteNewsById(id);
-        return "redirect:/admin/news/0";
-
-    }
-
-    @GetMapping("/news/{pageNo}")
-    public String newssPage(@PathVariable("pageNo") int pageNo, Model model, Principal principal){
-
-        Page<News> news = newsService.pageNews(pageNo);
-        String email = principal.getName();
-        User user = service.getByEmail(email);
-        model.addAttribute("information", user);
-        model.addAttribute("title", "Manage Product");
-        model.addAttribute("size", news.getSize());
-        model.addAttribute("totalPages", news.getTotalPages());
-        model.addAttribute("currentPage", pageNo);
-        model.addAttribute("news", news);
-        return "allNewsDelete";
     }
 
 

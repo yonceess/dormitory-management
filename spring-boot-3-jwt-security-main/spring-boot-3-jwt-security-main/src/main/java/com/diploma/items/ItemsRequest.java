@@ -13,7 +13,11 @@ import java.util.Date;
 @NoArgsConstructor
 public class ItemsRequest {
     private String name;
-    private String description_dorm;
+    private String dormitory;
+
+    private String apartment;
+
+    private int room;
     private String problem;
     private String phone;
 

@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Boxicons -->
-
+  <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="../static/css/profile1.css"  th:href="@{/css/profile1.css}">
 
@@ -21,7 +21,7 @@
 
 <!-- SIDEBAR -->
 <section id="sidebar">
-  <a href="#" class="brand">
+  <a class="brand"  style="text-decoration: none">
     <i class='bx bxs-smile'></i>
     <span class="text">AITU Dormitory</span>
   </a>
@@ -39,7 +39,7 @@
       </a>
     </li>
     <li>
-      <a th:href="@{'/admin/news/0'}">
+      <a th:href="@{'/file/admin/news/0'}">
         <i class='bx bxs-doughnut-chart' ></i>
         <span class="text">News</span>
       </a>
@@ -63,7 +63,7 @@
       </a>
     </li>
     <li>
-      <a th:href="@{'/admin/saveNews'}">
+      <a th:href="@{'/file/admin/files/new'}">
         <i class='bx bxs-group' ></i>
         <span class="text">Add news</span>
       </a>
@@ -92,7 +92,7 @@
 <section id="content">
   <!-- NAVBAR -->
   <nav>
-    <a th:href="@{'/admin/profile'}" class="profile" style="margin-left: 1000px; text-decoration: none; margin-top: 4px; color: var(--blue)">
+    <a th:href="@{'/admin/profile'}" class="profile" style="margin-left: 970px; text-decoration: none; margin-top: 6px; color: var(--blue)">
       <div style="display: flex; flex-direction: row; align-content: space-between">
         <p style="margin-top: 5px">admin@astanait.edu.kz</p>
         <img style="margin-left: 20px" src="https://cdn-icons-png.flaticon.com/512/3237/3237472.png">
@@ -107,8 +107,8 @@
       <div class="row">
         <div class="col-md-3 border-right">
           <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://cdn-icons-png.flaticon.com/512/3237/3237472.png">
-            <span class="font-weight-bold" style="margin-top: 10px"><h5 th:text="${information.firstname}"></h5><h5 th:text="${information.lastname}"></h5></span>
-            <span class="text-black-50" style="margin-top: 10px" th:text="${information.email}"></span><span> </span></div>
+            <span class="font-weight-bold" style="margin-top: 30px"><h5 th:text="${information.firstname}"></h5><h5 th:text="${information.lastname}"></h5></span>
+            <span class="text-black-50" style="margin-top: 30px" th:text="${information.email}"></span><span> </span></div>
         </div>
         <div class="col-md-9 border-right">
           <div class="p-3 py-5">

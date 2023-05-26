@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Boxicons -->
-
+  <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="../static/css/userProfile.css"  th:href="@{/css/userProfile.css}">
 
@@ -27,7 +27,7 @@
   </a>
   <ul class="side-menu top" >
     <li>
-      <a th:href="@{'/user/allnews/0'}" style="background-color: #1a1f36; color: white; text-decoration: none;">
+      <a th:href="@{'/file/user/allnews/0'}" style="background-color: #1a1f36; color: white; text-decoration: none;">
         <i class='bx bxs-dashboard' ></i>
         <span class="text">Main page</span>
       </a>
@@ -45,7 +45,7 @@
       </a>
     </li>
     <li>
-      <a href="#" style="background-color: #1a1f36; color: white; text-decoration: none;">
+      <a th:href="@{'/file/user/statement'}" style="background-color: #1a1f36; color: white; text-decoration: none;">
         <i class='bx bxs-message-dots' ></i>
         <span class="text">Example of applications</span>
       </a>
@@ -59,7 +59,7 @@
       </a>
     </li>
     <li>
-      <a th:href="@{'logout'}" class="logout" style="background-color: #1a1f36;  text-decoration: none;">
+      <a th:href="@{'/logout'}" class="logout" style="background-color: #1a1f36;  text-decoration: none;">
         <i class='bx bxs-log-out-circle' ></i>
         <span class="text">Logout</span>
       </a>
@@ -73,11 +73,12 @@
 <!-- CONTENT -->
 <section id="content">
   <!-- NAVBAR -->
-  <nav>
-    <a th:href="@{'/user/profile'}" class="profile" style="margin-left: 1030px; text-decoration: none; margin-top: 4px">
+  <nav style="background-color: #1a1f36;font-size: 15px; font-font: 'Poppins', sans-serif;">
+
+    <a th:href="@{'/user/profile'}" class="profile" style="font-size:14px;margin-left: 980px; text-decoration: none; margin-top: 8px; color: white">
       <div style="display: flex; flex-direction: row; align-content: space-between">
-      <p th:text="${information.email}" style="margin-top: 5px"></p>
-      <img style="margin-left: 20px" src="https://cdn-icons-png.flaticon.com/512/3237/3237472.png">
+        <p th:text="${information.email}" style="margin-top: 9px"></p>
+        <img style="margin-left: 20px;margin-top: 3px" src="https://cdn-icons-png.flaticon.com/512/3237/3237472.png">
       </div>
     </a>
   </nav>
@@ -85,12 +86,12 @@
 
   <!-- MAIN -->
   <main>
-    <div class="container rounded bg-white mt-2 mb-5"  >
+    <div class="container rounded bg-white mt-1 mb-5"  >
       <div class="row">
         <div class="col-md-3 border-right">
           <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://cdn-icons-png.flaticon.com/512/3237/3237472.png">
-            <span class="font-weight-bold"><h5 th:text="${information.firstname}"></h5><h5 th:text="${information.lastname}"></h5></span>
-            <span class="text-black-50" th:text="${information.email}"></span><span> </span></div>
+            <span class="font-weight-bold" style="margin-top: 30px"><h5 th:text="${information.firstname}"></h5><h5 th:text="${information.lastname}"></h5></span>
+            <span class="text-black-50" style="margin-top: 10px" th:text="${information.email}"></span><span> </span></div>
         </div>
         <div class="col-md-9 border-right">
           <div class="p-3 py-5">
@@ -183,7 +184,7 @@
         <hr>
       <div class="row" th:each = "item : ${items}">
           <div class="col-md-4 border-right">
-              <span class="font-weight-bold" style="text-align: center"><p  th:text="${item.description_dorm}"></p></span>
+              <span class="font-weight-bold" style="text-align: center"><p  th:text="${item.dormitory}"></p></span>
           </div>
             <div class="col-md-8 border-right">
               <span class="font-weight-bold" style="text-align: center"><p th:text="${item.problem}"></p></span>

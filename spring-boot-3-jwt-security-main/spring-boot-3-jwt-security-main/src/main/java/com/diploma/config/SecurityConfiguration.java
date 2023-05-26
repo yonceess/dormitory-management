@@ -22,28 +22,36 @@ public class SecurityConfiguration {
   private final AuthenticationProvider authenticationProvider;
   private final LogoutHandler logoutHandler;
 
+  private final SimpleAuthenticationSuccessHandler successHandler;
+
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http
             .csrf()
             .disable()
             .authorizeHttpRequests()
-            .requestMatchers("/admin/**").hasRole("ADMIN")
-            .requestMatchers("/user/**").hasRole("USER")
-            .requestMatchers("/api/v1/**", "/*/*.css")
+            .requestMatchers("/admin/**", "/file/admin/**").hasRole("ADMIN")
+            .requestMatchers("/user/**", "/file/user/**").hasRole("USER")
+            .requestMatchers("/api/v1/**", "/*/*.css","/fonts/**", "/*/*.js", "vendors/**", "/*/*.ico",  "/*/*.png", "/*/*.jpg"
+            , "/*/*.min.css", "/*/*/*.min.js")
             .permitAll()
             .anyRequest()
             .authenticated()
             .and()
             .formLogin()
+            .loginPage("/api/v1/auth/login").successHandler(successHandler)
             .permitAll()
             .and()
         .authenticationProvider(authenticationProvider)
         .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-        .logout()
-        .addLogoutHandler(logoutHandler)
-        .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext())
-    ;
+
+            .logout()
+            .logoutSuccessUrl("/api/v1/auth/main")
+            .addLogoutHandler(logoutHandler)
+            .logoutSuccessHandler((request, response, authentication) -> {
+              SecurityContextHolder.clearContext();
+              response.sendRedirect("/api/v1/auth/main");
+            }) ;
 
     return http.build();
   }
